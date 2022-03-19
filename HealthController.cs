@@ -28,24 +28,26 @@ namespace GameHacking {
             this.enabledInfinityHealth = false;
         }
 
+        public bool getInfiniteHealthStatus() {
+
+            return this.enabledInfinityHealth;
+        }
+
         public void changeRestoreHealthAmount(int newAmount) {
 
             this.restoreHealthAmount = newAmount;
         }
 
-        public void startThread() {
+        public async void startThread() {
 
             while (true) {
 
 
-                if (enabledInfinityHealth) {
-
-                    Console.WriteLine("[HOPPUS-CHEAT] RESTORE PLAYER HEALTH");
-
+                if (enabledInfinityHealth) 
                     memory.WriteMemory(memHelper.getAddress(this.healthOffset), "int", this.restoreHealthAmount.ToString());
-                }
+                
 
-                Thread.Sleep(500);
+                await Task.Delay(100);
             }
         }
     }

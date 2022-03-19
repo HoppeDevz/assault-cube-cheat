@@ -23,7 +23,7 @@ namespace GameHacking {
             string yCoordAddress = "ac_client.exe+0x17B0B8,0x28";
             string zCoordAddress = "ac_client.exe+0x17B0B8,0x30";
 
-            AmmoHacking ammoController = new AmmoHacking();
+            AmmoHacking ammoController = new AmmoHacking(memory);
             HealthHacking healthHacking = new HealthHacking(memory);
 
             int PID = memory.GetProcIdFromName("ac_client");
@@ -32,9 +32,61 @@ namespace GameHacking {
 
                 memory.OpenProcess(PID);
 
-                healthHacking.enableInfiniteHealth();
                 healthHacking.startThread();
+                ammoController.startThread();
 
+                int option = 0;
+
+                while (true) {
+
+                    Console.WriteLine("===========HOPPE CHEAT===========");
+                    Console.WriteLine("INFINITE WEAPON_AMMO: " + (ammoController.getPistolAmmoStatus() ? "[ON]" : "[OFF]"));
+                    Console.WriteLine("INFINITE AR_AMMO: " + (ammoController.getArAmmoStatus() ? "[ON]" : "[OFF]"));
+                    Console.WriteLine("INFINITE HEALTH: " + (healthHacking.getInfiniteHealthStatus() ? "[ON]" : "[OFF]"));
+
+                    Console.WriteLine();
+
+                    Console.WriteLine("1 - Enable infinite pistol ammo");
+                    Console.WriteLine("2 - Enable infinite ar ammo");
+                    Console.WriteLine("3 - Enable infinite health");
+                    Console.WriteLine("4 - Disable infinite pistol ammo");
+                    Console.WriteLine("5 - Disable infinite ar ammo");
+                    Console.WriteLine("6 - Disable infinite ar ammo");
+
+                    option = int.Parse(Console.ReadLine());
+
+                    if (option == 1) {
+
+                        ammoController.enableInfinitePistolAmmo();
+                    }
+
+                    if (option == 2) {
+
+                        ammoController.enableInfiniteArAmmo();
+                    }
+
+                    if (option == 3) {
+
+                        healthHacking.enableInfiniteHealth();
+                    }
+
+                    if (option == 4) {
+
+                        ammoController.disableInfinitePistolAmmo();
+                    }
+
+                    if (option == 5) {
+
+                        ammoController.disableInfiniteArAmmo();
+                    }
+
+                    if (option == 5) {
+
+                        healthHacking.disableInfinityHealth();
+                    }
+
+                    Console.Clear();
+                }
                 /*
                 while (true) {
 
