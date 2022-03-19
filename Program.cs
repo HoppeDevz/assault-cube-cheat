@@ -25,6 +25,7 @@ namespace GameHacking {
 
             AmmoHacking ammoController = new AmmoHacking(memory);
             HealthHacking healthHacking = new HealthHacking(memory);
+            CoordsHacking coordsHacking = new CoordsHacking(memory);
 
             int PID = memory.GetProcIdFromName("ac_client");
 
@@ -52,6 +53,7 @@ namespace GameHacking {
                     Console.WriteLine("4 - Disable infinite pistol ammo");
                     Console.WriteLine("5 - Disable infinite ar ammo");
                     Console.WriteLine("6 - Disable infinite ar ammo");
+                    Console.WriteLine("7 - Change player coords");
 
                     option = int.Parse(Console.ReadLine());
 
@@ -80,9 +82,23 @@ namespace GameHacking {
                         ammoController.disableInfiniteArAmmo();
                     }
 
-                    if (option == 5) {
+                    if (option == 6) {
 
                         healthHacking.disableInfinityHealth();
+                    }
+
+                    if (option == 7) {
+
+                        Console.Write("Value that will be increased on the x axis: ");
+                        float xVal = float.Parse(Console.ReadLine());
+
+                        Console.Write("Value that will be increased on the y axis: ");
+                        float yVal = float.Parse(Console.ReadLine());
+
+                        Console.Write("Value that will be increased on the z axis: ");
+                        float zVal = float.Parse(Console.ReadLine());
+
+                        coordsHacking.increasePlayerPosition(xVal, yVal, zVal);
                     }
 
                     Console.Clear();
