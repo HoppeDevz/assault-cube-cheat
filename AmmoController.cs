@@ -8,10 +8,7 @@ namespace GameHacking {
         private string arAmmoOffset = "0x140";
         private string pistolAmmoOffset = "0x12C";
 
-        public string getAdress(string offset) {
-
-            return "ac_client.exe+" + this.playerBaseAddress + "," + offset;
-        }
+        MemoryHelper memHelper = new MemoryHelper();
 
         public void reloadAmmo(int amount, string type, Mem memory) {
 
@@ -19,13 +16,13 @@ namespace GameHacking {
 
                 case "pistol": {
 
-                    memory.WriteMemory(this.getAdress(this.pistolAmmoOffset), "int", amount.ToString());
+                    memory.WriteMemory(memHelper.getAddress(this.pistolAmmoOffset), "int", amount.ToString());
                     break;
                 }
 
                 case "ar": {
 
-                    memory.WriteMemory(this.getAdress(this.arAmmoOffset), "int", amount.ToString());
+                    memory.WriteMemory(memHelper.getAddress(this.arAmmoOffset), "int", amount.ToString());
                     break;
                 }
             }

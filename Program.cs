@@ -24,6 +24,7 @@ namespace GameHacking {
             string zCoordAddress = "ac_client.exe+0x17B0B8,0x30";
 
             AmmoHacking ammoController = new AmmoHacking();
+            HealthHacking healthHacking = new HealthHacking(memory);
 
             int PID = memory.GetProcIdFromName("ac_client");
 
@@ -31,14 +32,17 @@ namespace GameHacking {
 
                 memory.OpenProcess(PID);
 
+                healthHacking.enableInfiniteHealth();
+                healthHacking.startThread();
 
+                /*
                 while (true) {
 
                     ammoController.reloadAmmo(999, "pistol", memory);
                     Thread.Sleep(1000);
                 }
 
-                /*
+                
                 while (true) {
                     
                     float x = memory.ReadFloat(xCoordAddress);
